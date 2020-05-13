@@ -6,4 +6,5 @@ pub struct Options {
     pub fov: usize,
     pub file_name: String,
     pub window_title: String,
+    pub background: u32,
 }

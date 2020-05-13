@@ -11,11 +11,11 @@ pub struct Circle {
     pub colour: u32,
 }
 pub trait Intersectable {
-    fn intersects(&self, origin: &Vector3f, direction: &Vector3f) -> Option<u32>;
+    fn intersects(&self, origin: &Vector3f, direction: &Vector3f) -> Option<(u32, f32)>;
 }
 
 impl Intersectable for Rectangle {
-    fn intersects(&self, origin: &Vector3f, direction: &Vector3f) -> Option<u32> {
+    fn intersects(&self, origin: &Vector3f, direction: &Vector3f) -> Option<(u32, f32)> {
         let distance = self.pos.z - origin.z;
         let multiple = distance / direction.z;
 
@@ -28,7 +28,7 @@ impl Intersectable for Rectangle {
             && self.pos.y + self.height > hit_y;
 
         if hit {
-            Some(self.colour)
+            Some((self.colour, distance))
         } else {
             None
         }
@@ -36,7 +36,7 @@ impl Intersectable for Rectangle {
 }
 
 impl Intersectable for Circle {
-    fn intersects(&self, origin: &Vector3f, direction: &Vector3f) -> Option<u32> {
+    fn intersects(&self, origin: &Vector3f, direction: &Vector3f) -> Option<(u32, f32)> {
         let distance = self.pos.z - origin.z;
         let multiple = distance / direction.z;
 
@@ -50,7 +50,7 @@ impl Intersectable for Circle {
         }) < self.radius;
 
         if hit {
-            Some(self.colour)
+            Some((self.colour, distance))
         } else {
             None
         }

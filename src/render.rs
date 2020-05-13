@@ -26,7 +26,7 @@ pub fn render(objects: Vec<Box<dyn Intersectable>>, lights: Vec<Light>, options:
 
     while window.is_open() && !window.is_key_down(Key::Escape) {
         let rays = generate_rays(&camera, &options);
-        let buffer: Vec<u32> = intersect(&rays, &objects);
+        let buffer: Vec<u32> = intersect(&rays, &options, &objects);
         // We unwrap here as we want this code to exit if it fails. Real applications may want to handle this in a different way
         window
             .update_with_buffer(&buffer, options.width, options.height)
@@ -34,10 +34,14 @@ pub fn render(objects: Vec<Box<dyn Intersectable>>, lights: Vec<Light>, options:
     }
 }
 
-fn intersect(rays: &Vec<Ray>, objects: &Vec<Box<dyn Intersectable>>) -> Vec<u32> {
+fn intersect(
+    rays: &Vec<Ray>,
+    options: &Options,
+    objects: &Vec<Box<dyn Intersectable>>,
+) -> Vec<u32> {
     return rays
         .iter()
-        .map(|ray| ray.intersect(&objects).unwrap_or(0))
+        .map(|ray| ray.intersect(&objects).unwrap_or(options.background))
         .collect();
 }
 
@@ -46,9 +50,9 @@ fn generate_rays(camera: &Camera, options: &Options) -> Vec<Ray> {
     let height = options.height as f32;
     let aspect_ratio = width / height;
     let fov = (options.fov as f32 / 2.0).tanh();
-    println!("{}", fov);
-    println!("{}", aspect_ratio);
     let mut rays = Vec::<Ray>::new();
+    //Get transformation matrix
+
     for j in 0..options.height {
         for i in 0..options.width {
             let ndc_x = (i as f32 + 0.5) / width;

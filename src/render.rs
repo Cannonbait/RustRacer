@@ -1,15 +1,13 @@
 use super::*;
 
-pub fn render(objects: Vec<Object>, lights: Vec<Light>, options: Options) {
+pub fn render(objects: Vec<Box<dyn Intersectable>>, lights: Vec<Light>, options: Options) {
     let mut window = Window::new(
         options.window_title.as_str(),
         options.width,
         options.height,
         WindowOptions::default(),
     )
-    .unwrap_or_else(|e| {
-        panic!("{}", e);
-    });
+    .unwrap();
 
     let camera = Camera {
         pos: Vector3f {
@@ -28,11 +26,19 @@ pub fn render(objects: Vec<Object>, lights: Vec<Light>, options: Options) {
 
     while window.is_open() && !window.is_key_down(Key::Escape) {
         let rays = generate_rays(&camera, &options);
+        let buffer: Vec<u32> = intersect(&rays, &objects);
         // We unwrap here as we want this code to exit if it fails. Real applications may want to handle this in a different way
         window
-            .update_with_buffer(&buffer.concat(), options.width, options.height)
+            .update_with_buffer(&buffer, options.width, options.height)
             .unwrap();
     }
+}
+
+fn intersect(rays: &Vec<Ray>, objects: &Vec<Box<dyn Intersectable>>) -> Vec<u32> {
+    return rays
+        .iter()
+        .map(|ray| ray.intersect(&objects).unwrap_or(0))
+        .collect();
 }
 
 fn generate_rays(camera: &Camera, options: &Options) -> Vec<Ray> {

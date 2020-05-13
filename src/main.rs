@@ -15,12 +15,13 @@ use object::*;
 use options::*;
 use ray::*;
 use render::*;
+use shape::*;
 use vector::*;
 
 fn main() {
     let options = Options {
-        width: 5,
-        height: 5,
+        width: 640,
+        height: 480,
         fov: 90,
         max_depth: 5,
         file_name: String::from("render"),
@@ -32,8 +33,17 @@ fn main() {
     render(objects, lights, options);
 }
 
-fn load_objects() -> Vec<Object> {
-    let vec: Vec<Object> = Vec::new();
+fn load_objects() -> Vec<Box<dyn Intersectable>> {
+    let mut vec: Vec<Box<dyn Intersectable>> = Vec::new();
+    vec.push(Box::new(Circle {
+        pos: Vector3f {
+            x: 2.0,
+            y: 0.0,
+            z: 2.0,
+        },
+        radius: 1.0,
+        colour: 60000,
+    }));
     return vec;
 }
 

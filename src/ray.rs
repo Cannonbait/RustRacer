@@ -11,6 +11,6 @@ impl Ray {
             .iter()
             .filter_map(|o| o.intersects(&self.pos, &self.dir))
             .min_by(|a, b| a.partial_cmp(b).unwrap_or(Ordering::Equal))
-            .map(|(color, dist)| color)
+            .map(|(color, _)| color)
     }
 }

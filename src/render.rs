@@ -9,22 +9,32 @@ pub fn render(objects: Vec<Box<dyn Intersectable>>, lights: Vec<Light>, options:
     )
     .unwrap();
 
-    let camera = Camera {
+    let mut camera = Camera {
         pos: Vector3f {
             x: 0.0,
             y: 0.0,
             z: 0.0,
-        },
-        dir: Vector3f {
-            x: 0.0,
-            y: 0.0,
-            z: -1.0,
         },
     };
     // Limit to max ~60 fps update rate
     window.limit_update_rate(Some(std::time::Duration::from_micros(16600)));
 
     while window.is_open() && !window.is_key_down(Key::Escape) {
+        window.get_keys().map(|keys| {
+            for t in keys {
+                match t {
+                    Key::W => {
+                        camera.pos.y += 1.0;
+                    }
+                    Key::S => {
+                        camera.pos.y -= 1.0;
+                    }
+                    _ => (),
+                }
+            }
+        });
+        println!("{}", camera.pos.y);
+
         let rays = generate_rays(&camera, &options);
         let buffer: Vec<u32> = intersect(&rays, &options, &objects);
         // We unwrap here as we want this code to exit if it fails. Real applications may want to handle this in a different way
@@ -51,6 +61,7 @@ fn generate_rays(camera: &Camera, options: &Options) -> Vec<Ray> {
     let aspect_ratio = width / height;
     let fov = (options.fov as f32 / 2.0).tanh();
     let mut rays = Vec::<Ray>::new();
+    println!("{}", camera.pos.y);
     //Get transformation matrix
 
     for j in 0..options.height {

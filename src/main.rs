@@ -45,18 +45,18 @@ fn load_objects() -> Vec<Box<dyn Intersectable>> {
         pos: Vector3f {
             x: 0.0,
             y: 0.0,
-            z: 2.0,
+            z: 10.0,
         },
-        radius: 1.0,
+        radius: 5.0,
         colour: from_u8_rgb(30, 144, 255),
     }));
     vec.push(Box::new(Circle {
         pos: Vector3f {
             x: 0.5,
             y: 0.0,
-            z: 2.01,
+            z: 10.01,
         },
-        radius: 1.0,
+        radius: 5.0,
         colour: from_u8_rgb(250, 128, 114),
     }));
     return vec;

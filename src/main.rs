@@ -37,7 +37,7 @@ fn load_objects() -> Vec<Box<dyn Intersectable>> {
     let mut vec: Vec<Box<dyn Intersectable>> = Vec::new();
     vec.push(Box::new(Circle {
         pos: Vector3f {
-            x: 2.0,
+            x: 0.0,
             y: 0.0,
             z: 2.0,
         },

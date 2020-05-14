@@ -10,6 +10,7 @@ impl Intersectable for Sphere {
     fn intersects(&self, origin: &Vector3f, direction: &Vector3f) -> Option<(u32, FloatingUnit)> {
         let direction = direction.normalize();
         let length = origin.subtract(&self.pos);
+        // println!("Sphere length{:?}", length);
         let a = 1.0;
         let b = length.dot_product(&direction) * 2.0;
         let c = length.dot_product(&length) - self.radius * self.radius;

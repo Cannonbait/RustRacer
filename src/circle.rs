@@ -2,7 +2,7 @@ use super::*;
 pub struct Circle {
     pub pos: Vector3f,
     pub radius: Fu,
-    pub color: u32,
+    pub color: Color,
 }
 
 impl Shape for Circle {
@@ -29,7 +29,7 @@ impl Shape for Circle {
     fn get_surface_data(&self, hit: &Vector3f) -> (Vector3f, Vector3f) {
         todo!()
     }
-    fn get_color(&self) -> Cu {
+    fn get_color(&self) -> Color {
         self.color
     }
 }

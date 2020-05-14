@@ -4,15 +4,15 @@ use std::f64::consts;
 pub struct Sphere {
     pub pos: Vector3f,
     pub radius: Fu,
-    pub color: u32,
+    pub color: Color,
 }
 
 impl Shape for Sphere {
     fn get_surface_data(&self, hit: &Vector3f) -> (Vector3f, Vector3f) {
         let normalized_hit = hit.subtract(&self.pos).normalize();
         let texture_coord = Vector3f {
-            x: 1.0 + (normalized_hit.z.atan2(normalized_hit.x) / consts::PI) * 0.5,
-            y: normalized_hit.z.acos() / consts::PI,
+            x: (1.0 + (normalized_hit.z.atan2(normalized_hit.x) / consts::PI)) * 0.5,
+            y: normalized_hit.y.acos() / consts::PI,
             z: 0.0,
         };
 
@@ -40,7 +40,7 @@ impl Shape for Sphere {
         }
         return None;
     }
-    fn get_color(&self) -> Cu {
+    fn get_color(&self) -> Color {
         self.color
     }
 }

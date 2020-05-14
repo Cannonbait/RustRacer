@@ -2,6 +2,7 @@ extern crate minifb;
 
 mod camera;
 mod circle;
+mod color;
 mod light;
 mod options;
 mod ray;
@@ -11,6 +12,7 @@ mod sphere;
 mod vector;
 use camera::*;
 use circle::*;
+use color::*;
 use light::*;
 use minifb::*;
 use options::*;
@@ -21,12 +23,11 @@ use sphere::*;
 use vector::*;
 
 type Fu = f64;
-type Cu = u32;
 
 fn main() {
     let options = Options {
-        width: 2560,
-        height: 1440,
+        width: 1280,
+        height: 960,
         fov: 90,
         max_depth: 5,
         file_name: String::from("render"),
@@ -39,30 +40,25 @@ fn main() {
     render(objects, lights, options);
 }
 
-fn from_u8_rgb(r: u8, g: u8, b: u8) -> u32 {
-    let (r, g, b) = (r as u32, g as u32, b as u32);
-    (r << 16) | (g << 8) | b
-}
-
 fn load_objects() -> Vec<Box<dyn Shape>> {
     let mut vec: Vec<Box<dyn Shape>> = Vec::new();
     vec.push(Box::new(Sphere {
         pos: Vector3f {
-            x: 0.0,
-            y: 0.0,
-            z: -4.2,
+            x: 1.0,
+            y: 1.0,
+            z: -5.0,
         },
-        radius: 1.5,
-        color: from_u8_rgb(0, 128, 0),
+        radius: 3.0,
+        color: Color { r: 0, g: 128, b: 0 },
     }));
-    // vec.push(Box::new(Circle {
+    // vec.push(Box::new(Sphere {
     //     pos: Vector3f {
-    //         x: 0.0,
+    //         x: 1.0,
     //         y: 0.0,
     //         z: -3.0,
     //     },
     //     radius: 1.0,
-    //     color: from_u8_rgb(0, 0, 155),
+    //     color: Color { r: 0, g: 0, b: 128 },
     // }));
     return vec;
 }

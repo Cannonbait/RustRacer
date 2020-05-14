@@ -7,6 +7,14 @@ pub struct Vector3f {
 }
 
 impl Vector3f {
+    pub fn new(x: u32, y: u32, z: u32) -> Vector3f {
+        Vector3f {
+            x: x as Fu,
+            y: y as Fu,
+            z: z as Fu,
+        }
+    }
+
     pub fn distance(&self, other: &Vector3f) -> Fu {
         ((self.x - other.x).powi(2) + (self.y - other.y).powi(2) + (self.z - other.z).powi(2))
             .sqrt()

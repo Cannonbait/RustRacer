@@ -1,16 +1,27 @@
 use super::*;
+use std::f64::consts;
 
 pub struct Sphere {
     pub pos: Vector3f,
-    pub radius: FloatingUnit,
-    pub colour: u32,
+    pub radius: Fu,
+    pub color: u32,
 }
 
-impl Intersectable for Sphere {
-    fn intersects(&self, origin: &Vector3f, direction: &Vector3f) -> Option<(u32, FloatingUnit)> {
+impl Shape for Sphere {
+    fn get_surface_data(&self, hit: &Vector3f) -> (Vector3f, Vector3f) {
+        let normalized_hit = hit.subtract(&self.pos).normalize();
+        let texture_coord = Vector3f {
+            x: 1.0 + (normalized_hit.z.atan2(normalized_hit.x) / consts::PI) * 0.5,
+            y: normalized_hit.z.acos() / consts::PI,
+            z: 0.0,
+        };
+
+        (normalized_hit, texture_coord)
+    }
+
+    fn intersects(&self, origin: &Vector3f, direction: &Vector3f) -> Option<Fu> {
         let direction = direction.normalize();
         let length = origin.subtract(&self.pos);
-        // println!("Sphere length{:?}", length);
         let a = 1.0;
         let b = length.dot_product(&direction) * 2.0;
         let c = length.dot_product(&length) - self.radius * self.radius;
@@ -23,20 +34,19 @@ impl Intersectable for Sphere {
                 if x1.is_sign_negative() {
                     return None;
                 }
-                return Some((self.colour, x1));
+                return Some(x1);
             }
-            return Some((self.colour, x0));
+            return Some(x0);
         }
         return None;
     }
+    fn get_color(&self) -> Cu {
+        self.color
+    }
 }
 
-fn solve_quadratic(
-    a: FloatingUnit,
-    b: FloatingUnit,
-    c: FloatingUnit,
-) -> Option<(FloatingUnit, FloatingUnit)> {
-    let discr: FloatingUnit = b * b - (4.0 * a * c);
+fn solve_quadratic(a: Fu, b: Fu, c: Fu) -> Option<(Fu, Fu)> {
+    let discr: Fu = b * b - (4.0 * a * c);
 
     if discr.is_sign_negative() {
         return None;

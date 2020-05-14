@@ -1,8 +1,8 @@
 extern crate minifb;
 
 mod camera;
+mod circle;
 mod light;
-mod object;
 mod options;
 mod ray;
 mod render;
@@ -10,9 +10,9 @@ mod shape;
 mod sphere;
 mod vector;
 use camera::*;
+use circle::*;
 use light::*;
 use minifb::*;
-use object::*;
 use options::*;
 use ray::*;
 use render::*;
@@ -20,12 +20,13 @@ use shape::*;
 use sphere::*;
 use vector::*;
 
-type FloatingUnit = f64;
+type Fu = f64;
+type Cu = u32;
 
 fn main() {
     let options = Options {
-        width: 640,
-        height: 480,
+        width: 2560,
+        height: 1440,
         fov: 90,
         max_depth: 5,
         file_name: String::from("render"),
@@ -43,8 +44,8 @@ fn from_u8_rgb(r: u8, g: u8, b: u8) -> u32 {
     (r << 16) | (g << 8) | b
 }
 
-fn load_objects() -> Vec<Box<dyn Intersectable>> {
-    let mut vec: Vec<Box<dyn Intersectable>> = Vec::new();
+fn load_objects() -> Vec<Box<dyn Shape>> {
+    let mut vec: Vec<Box<dyn Shape>> = Vec::new();
     vec.push(Box::new(Sphere {
         pos: Vector3f {
             x: 0.0,
@@ -52,17 +53,17 @@ fn load_objects() -> Vec<Box<dyn Intersectable>> {
             z: -4.2,
         },
         radius: 1.5,
-        colour: from_u8_rgb(0, 128, 0),
+        color: from_u8_rgb(0, 128, 0),
     }));
-    vec.push(Box::new(Circle {
-        pos: Vector3f {
-            x: 0.0,
-            y: 0.0,
-            z: -3.0,
-        },
-        radius: 1.0,
-        colour: from_u8_rgb(0, 0, 155),
-    }));
+    // vec.push(Box::new(Circle {
+    //     pos: Vector3f {
+    //         x: 0.0,
+    //         y: 0.0,
+    //         z: -3.0,
+    //     },
+    //     radius: 1.0,
+    //     color: from_u8_rgb(0, 0, 155),
+    // }));
     return vec;
 }
 

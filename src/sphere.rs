@@ -22,7 +22,7 @@ impl Shape for Sphere {
     fn intersects(&self, origin: &Vector3f, direction: &Vector3f) -> Option<Fu> {
         let direction = direction.normalize();
         let length = origin.subtract(&self.pos);
-        let a = 1.0;
+        let a = direction.dot_product(&direction);
         let b = length.dot_product(&direction) * 2.0;
         let c = length.dot_product(&length) - self.radius * self.radius;
 

@@ -58,7 +58,8 @@ fn generate_rays(camera: &Camera, options: &Options) -> Vec<Ray> {
                     x: screen_x,
                     y: screen_y,
                     z: -1.0,
-                },
+                }
+                .normalize(),
             });
         }
     }

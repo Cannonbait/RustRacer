@@ -32,7 +32,7 @@ fn main() {
         max_depth: 5,
         file_name: String::from("render"),
         window_title: String::from("rustRacer"),
-        background: 0,
+        background: Color { r: 0, g: 0, b: 0 }.to_u32(),
     };
     let objects = load_objects();
     let lights = load_lights();
@@ -44,22 +44,58 @@ fn load_objects() -> Vec<Box<dyn Shape>> {
     let mut vec: Vec<Box<dyn Shape>> = Vec::new();
     vec.push(Box::new(Sphere {
         pos: Vector3f {
-            x: 1.0,
-            y: 1.0,
-            z: -5.0,
+            x: -30.0,
+            y: -20.0,
+            z: -60.0,
         },
-        radius: 3.0,
-        color: Color { r: 0, g: 128, b: 0 },
+        radius: 15.0,
+        color: Color { r: 255, g: 0, b: 0 },
     }));
-    // vec.push(Box::new(Sphere {
-    //     pos: Vector3f {
-    //         x: 1.0,
-    //         y: 0.0,
-    //         z: -3.0,
-    //     },
-    //     radius: 1.0,
-    //     color: Color { r: 0, g: 0, b: 128 },
-    // }));
+    vec.push(Box::new(Sphere {
+        pos: Vector3f {
+            x: 0.0,
+            y: 0.0,
+            z: -50.0,
+        },
+        radius: 15.0,
+        color: Color { r: 0, g: 255, b: 0 },
+    }));
+    vec.push(Box::new(Sphere {
+        pos: Vector3f {
+            x: -35.0,
+            y: 20.0,
+            z: -50.0,
+        },
+        radius: 15.0,
+        color: Color {
+            r: 255,
+            g: 255,
+            b: 0,
+        },
+    }));
+    vec.push(Box::new(Sphere {
+        pos: Vector3f {
+            x: 35.0,
+            y: -35.0,
+            z: -50.0,
+        },
+        radius: 15.0,
+        color: Color {
+            r: 0,
+            g: 255,
+            b: 255,
+        },
+    }));
+    vec.push(Box::new(Sphere {
+        pos: Vector3f {
+            x: 30.0,
+            y: 30.0,
+            z: -50.0,
+        },
+        radius: 20.0,
+        color: Color { r: 0, g: 0, b: 255 },
+    }));
+
     return vec;
 }
 

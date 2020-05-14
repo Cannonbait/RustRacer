@@ -47,14 +47,14 @@ fn load_objects() -> Vec<Box<dyn Intersectable>> {
     let mut vec: Vec<Box<dyn Intersectable>> = Vec::new();
     vec.push(Box::new(Sphere {
         pos: Vector3f {
-            x: 0.000000000001,
+            x: 0.0,
             y: 0.0,
-            z: -3.0,
+            z: -4.2,
         },
-        radius: 1.0,
+        radius: 1.5,
         colour: from_u8_rgb(0, 128, 0),
     }));
-    vec.push(Box::new(Sphere {
+    vec.push(Box::new(Circle {
         pos: Vector3f {
             x: 0.0,
             y: 0.0,

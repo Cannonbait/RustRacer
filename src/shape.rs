@@ -1,21 +1,21 @@
 use super::*;
 pub struct Rectangle {
     pub pos: Vector3f,
-    pub width: f32,
-    pub height: f32,
+    pub width: FloatingUnit,
+    pub height: FloatingUnit,
     pub colour: u32,
 }
 pub struct Circle {
     pub pos: Vector3f,
-    pub radius: f32,
+    pub radius: FloatingUnit,
     pub colour: u32,
 }
 pub trait Intersectable {
-    fn intersects(&self, origin: &Vector3f, direction: &Vector3f) -> Option<(u32, f32)>;
+    fn intersects(&self, origin: &Vector3f, direction: &Vector3f) -> Option<(u32, FloatingUnit)>;
 }
 
 impl Intersectable for Rectangle {
-    fn intersects(&self, origin: &Vector3f, direction: &Vector3f) -> Option<(u32, f32)> {
+    fn intersects(&self, origin: &Vector3f, direction: &Vector3f) -> Option<(u32, FloatingUnit)> {
         let distance = self.pos.z - origin.z;
         let multiple = distance / direction.z;
 
@@ -36,7 +36,7 @@ impl Intersectable for Rectangle {
 }
 
 impl Intersectable for Circle {
-    fn intersects(&self, origin: &Vector3f, direction: &Vector3f) -> Option<(u32, f32)> {
+    fn intersects(&self, origin: &Vector3f, direction: &Vector3f) -> Option<(u32, FloatingUnit)> {
         let distance = self.pos.z - origin.z;
         let multiple = distance / direction.z;
 

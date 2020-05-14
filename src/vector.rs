@@ -1,13 +1,56 @@
+use super::*;
 #[derive(Debug, Copy, Clone)]
 pub struct Vector3f {
-    pub x: f32,
-    pub y: f32,
-    pub z: f32,
+    pub x: FloatingUnit,
+    pub y: FloatingUnit,
+    pub z: FloatingUnit,
 }
 
 impl Vector3f {
-    pub fn distance(&self, other: &Vector3f) -> f32 {
+    pub fn distance(&self, other: &Vector3f) -> FloatingUnit {
         ((self.x - other.x).powi(2) + (self.y - other.y).powi(2) + (self.z - other.z).powi(2))
             .sqrt()
+    }
+
+    pub fn magnitude(&self) -> FloatingUnit {
+        ((self.x * self.x) + (self.y * self.y) + (self.z * self.z)).sqrt()
+    }
+
+    pub fn dot_product(&self, other: &Vector3f) -> FloatingUnit {
+        (self.x * other.x) + (self.y * other.y) + (self.z * other.z)
+    }
+
+    pub fn multiply(&self, operand: FloatingUnit) -> Vector3f {
+        Vector3f {
+            x: self.x * operand,
+            y: self.y * operand,
+            z: self.z * operand,
+        }
+    }
+
+    pub fn add(&self, other: &Vector3f) -> Vector3f {
+        Vector3f {
+            x: self.x + other.x,
+            y: self.y + other.y,
+            z: self.z + other.z,
+        }
+    }
+
+    pub fn subtract(&self, other: &Vector3f) -> Vector3f {
+        Vector3f {
+            x: self.x - other.x,
+            y: self.y - other.y,
+            z: self.z - other.z,
+        }
+    }
+
+    pub fn normalize(&self) -> Vector3f {
+        let length = self.magnitude();
+
+        Vector3f {
+            x: self.x / length,
+            y: self.y / length,
+            z: self.z / length,
+        }
     }
 }

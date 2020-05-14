@@ -11,10 +11,10 @@ impl Intersectable for Sphere {
         let direction = direction.normalize();
         let length = origin.subtract(&self.pos);
         let a = 1.0;
-        let b = length.dot_product(&direction) * (2.0);
-        let c = length.dot_product(&length) - self.radius;
+        let b = length.dot_product(&direction) * 2.0;
+        let c = length.dot_product(&length) - self.radius * self.radius;
 
-        if let Some((mut x0, mut x1)) = solveQuadratic(a, b, c) {
+        if let Some((mut x0, mut x1)) = solve_quadratic(a, b, c) {
             if x0 > x1 {
                 std::mem::swap(&mut x0, &mut x1);
             }
@@ -30,7 +30,7 @@ impl Intersectable for Sphere {
     }
 }
 
-fn solveQuadratic(
+fn solve_quadratic(
     a: FloatingUnit,
     b: FloatingUnit,
     c: FloatingUnit,

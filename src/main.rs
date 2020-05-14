@@ -51,7 +51,7 @@ fn load_objects() -> Vec<Box<dyn Intersectable>> {
             y: 0.0,
             z: -2.0,
         },
-        radius: 1.0,
+        radius: 1.5,
         colour: from_u8_rgb(250, 128, 114),
     }));
     return vec;

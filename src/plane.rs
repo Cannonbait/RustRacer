@@ -18,7 +18,7 @@ impl Plane {
 impl Shape for Plane {
     fn intersects(&self, origin: &Vector3f, direction: &Vector3f) -> Option<Fu> {
         let denom = self.normal.dot_product(&direction);
-        if denom.abs() > 0.00000001 {
+        if denom.abs() > 1e-6 {
             let dist = self.pos.subtract(origin);
             let t = dist.dot_product(&self.normal) / denom;
             if t >= 0.0 {
@@ -29,6 +29,6 @@ impl Shape for Plane {
     }
 
     fn get_color(&self, ray: &Ray, t: Fu) -> Color {
-        return self.color;
+        return self.color.multiply(self.normal.dot_product(&ray.dir).abs());
     }
 }

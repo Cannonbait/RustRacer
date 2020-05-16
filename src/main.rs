@@ -48,9 +48,9 @@ fn load_objects() -> Vec<Box<dyn Shape>> {
         pos: Vector3f {
             x: 0.0,
             y: 0.0,
-            z: -20.0,
+            z: -3.0,
         },
-        radius: 5.0,
+        radius: 1.0,
         color: Color {
             r: 242,
             g: 119,
@@ -59,19 +59,53 @@ fn load_objects() -> Vec<Box<dyn Shape>> {
     }));
     vec.push(Box::new(Plane::new(
         Vector3f {
+            x: -10.0,
+            y: 0.0,
+            z: 0.0,
+        },
+        Vector3f {
+            x: -1.0,
+            y: 0.0,
+            z: 0.0,
+        },
+        Color {
+            r: 200,
+            g: 200,
+            b: 200,
+        },
+    )));
+    vec.push(Box::new(Plane::new(
+        Vector3f {
+            x: 10.0,
+            y: 0.0,
+            z: 0.0,
+        },
+        Vector3f {
+            x: 1.0,
+            y: 0.0,
+            z: 0.0,
+        },
+        Color {
+            r: 200,
+            g: 200,
+            b: 200,
+        },
+    )));
+    vec.push(Box::new(Plane::new(
+        Vector3f {
             x: 0.0,
             y: 0.0,
-            z: -25.0,
+            z: -10.0,
         },
         Vector3f {
             x: 0.0,
             y: 0.0,
-            z: -1.0,
+            z: 1.0,
         },
         Color {
-            r: 24,
-            g: 41,
-            b: 140,
+            r: 200,
+            g: 200,
+            b: 200,
         },
     )));
 

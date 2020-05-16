@@ -108,6 +108,40 @@ fn load_objects() -> Vec<Box<dyn Shape>> {
             b: 200,
         },
     )));
+    vec.push(Box::new(Plane::new(
+        Vector3f {
+            x: 0.0,
+            y: 5.0,
+            z: 0.0,
+        },
+        Vector3f {
+            x: 0.0,
+            y: 1.0,
+            z: 0.0,
+        },
+        Color {
+            r: 200,
+            g: 200,
+            b: 200,
+        },
+    )));
+    vec.push(Box::new(Plane::new(
+        Vector3f {
+            x: 0.0,
+            y: -5.0,
+            z: 0.0,
+        },
+        Vector3f {
+            x: 0.0,
+            y: -1.0,
+            z: 0.0,
+        },
+        Color {
+            r: 200,
+            g: 200,
+            b: 200,
+        },
+    )));
 
     return vec;
 }

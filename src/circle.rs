@@ -26,10 +26,7 @@ impl Shape for Circle {
             None
         }
     }
-    fn get_surface_data(&self, hit: &Vector3f) -> (Vector3f, Vector3f) {
-        todo!()
-    }
-    fn get_color(&self) -> Color {
-        self.color
+    fn get_color(&self, ray: &Ray, t: Fu) -> Color {
+        return self.color;
     }
 }

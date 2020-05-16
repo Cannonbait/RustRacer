@@ -1,6 +1,6 @@
 use super::*;
 
-pub fn render(objects: Vec<Box<dyn Shape>>, lights: Vec<Light>, options: Options) {
+pub fn render(objects: Vec<Box<dyn Shape>>, options: Options) {
     let mut window = Window::new(
         options.window_title.as_str(),
         options.width,
@@ -20,7 +20,7 @@ pub fn render(objects: Vec<Box<dyn Shape>>, lights: Vec<Light>, options: Options
     window.limit_update_rate(Some(std::time::Duration::from_micros(16600)));
     while window.is_open() && !window.is_key_down(Key::Escape) {
         let rays = generate_rays(&camera, &options);
-        let trace = trace(&rays, &options, &objects);
+        let trace = trace(&rays, &objects);
 
         let buffer: Vec<_> = trace
             .iter()
@@ -35,7 +35,7 @@ pub fn render(objects: Vec<Box<dyn Shape>>, lights: Vec<Light>, options: Options
     }
 }
 
-fn trace(rays: &Vec<Ray>, options: &Options, shapes: &Vec<Box<dyn Shape>>) -> Vec<Option<Color>> {
+fn trace(rays: &Vec<Ray>, shapes: &Vec<Box<dyn Shape>>) -> Vec<Option<Color>> {
     return rays.iter().map(|ray| ray.intersect(&shapes)).collect();
 }
 
@@ -52,15 +52,14 @@ fn generate_rays(camera: &Camera, options: &Options) -> Vec<Ray> {
             let ndc_y = (j as Fu + 0.5) / height;
             let screen_x = (ndc_x * 2.0 - 1.0) * aspect_ratio * fov;
             let screen_y = (1.0 - ndc_y * 2.0) * fov;
-            rays.push(Ray {
-                pos: camera.pos,
-                dir: Vector3f {
+            rays.push(Ray::new(
+                camera.pos,
+                Vector3f {
                     x: screen_x,
                     y: screen_y,
                     z: -1.0,
-                }
-                .normalize(),
-            });
+                },
+            ));
         }
     }
     return rays;

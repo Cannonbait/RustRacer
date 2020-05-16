@@ -8,17 +8,6 @@ pub struct Sphere {
 }
 
 impl Shape for Sphere {
-    fn get_surface_data(&self, hit: &Vector3f) -> (Vector3f, Vector3f) {
-        let normalized_hit = hit.subtract(&self.pos).normalize();
-        let texture_coord = Vector3f {
-            x: (1.0 + (normalized_hit.z.atan2(normalized_hit.x) / consts::PI)) * 0.5,
-            y: normalized_hit.y.acos() / consts::PI,
-            z: 0.0,
-        };
-
-        (normalized_hit, texture_coord)
-    }
-
     fn intersects(&self, origin: &Vector3f, direction: &Vector3f) -> Option<Fu> {
         let direction = direction.normalize();
         let length = origin.subtract(&self.pos);
@@ -40,11 +29,36 @@ impl Shape for Sphere {
         }
         return None;
     }
-    fn get_color(&self) -> Color {
-        self.color
+
+    fn get_color(&self, ray: &Ray, t: Fu) -> Color {
+        let (normalized_hit, tex) = self.get_surface_data(&ray.pos.add(&ray.dir.multiply(t)));
+
+        let scale = 8.0;
+        let pattern = (((tex.x * scale) % 1.0) > 0.5) ^ (((tex.y * scale) % 1.0) > 0.5);
+        let product = normalized_hit.dot_product(&ray.dir.multiply(-1.0));
+
+        if product < 0.0 {
+            return Color { r: 0, g: 0, b: 0 };
+        }
+        return self
+            .color
+            .mix(&self.color.multiply(0.8), if pattern { 1.0 } else { 0.0 })
+            .multiply(product);
     }
 }
 
+impl Sphere {
+    fn get_surface_data(&self, hit: &Vector3f) -> (Vector3f, Vector3f) {
+        let normalized_hit = hit.subtract(&self.pos).normalize();
+        let texture_coord = Vector3f {
+            x: (1.0 + (normalized_hit.z.atan2(normalized_hit.x) / consts::PI)) * 0.5,
+            y: normalized_hit.y.acos() / consts::PI,
+            z: 0.0,
+        };
+
+        (normalized_hit, texture_coord)
+    }
+}
 fn solve_quadratic(a: Fu, b: Fu, c: Fu) -> Option<(Fu, Fu)> {
     let discr: Fu = b * b - (4.0 * a * c);
 

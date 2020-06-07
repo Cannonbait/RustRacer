@@ -13,6 +13,7 @@ use model::shape::*;
 use model::vector::*;
 use options::*;
 use render::*;
+use shapes::box3::*;
 use shapes::plane::*;
 use shapes::sphere::*;
 
@@ -34,6 +35,32 @@ fn main() {
 
 fn load_objects() -> Vec<Box<dyn Shape>> {
     let mut vec: Vec<Box<dyn Shape>> = Vec::new();
+    vec.push(Box::new(Box3 {
+        min: Vector3f {
+            x: 4.0,
+            y: 3.0,
+            z: -5.0,
+        },
+        max: Vector3f {
+            x: 5.0,
+            y: 5.0,
+            z: -7.0,
+        },
+        color: Color { r: 255, g: 0, b: 0 },
+    }));
+    vec.push(Box::new(Box3 {
+        min: Vector3f {
+            x: -3.1,
+            y: -3.0,
+            z: -5.0,
+        },
+        max: Vector3f {
+            x: -5.0,
+            y: -5.0,
+            z: -6.0,
+        },
+        color: Color { r: 0, g: 255, b: 0 },
+    }));
     vec.push(Box::new(Sphere {
         pos: Vector3f {
             x: 0.0,
@@ -47,91 +74,91 @@ fn load_objects() -> Vec<Box<dyn Shape>> {
             b: 119,
         },
     }));
-    vec.push(Box::new(Plane::new(
-        Vector3f {
-            x: -10.0,
-            y: 0.0,
-            z: 0.0,
-        },
-        Vector3f {
-            x: -1.0,
-            y: 0.0,
-            z: 0.0,
-        },
-        Color {
-            r: 200,
-            g: 200,
-            b: 200,
-        },
-    )));
-    vec.push(Box::new(Plane::new(
-        Vector3f {
-            x: 10.0,
-            y: 0.0,
-            z: 0.0,
-        },
-        Vector3f {
-            x: 1.0,
-            y: 0.0,
-            z: 0.0,
-        },
-        Color {
-            r: 200,
-            g: 200,
-            b: 200,
-        },
-    )));
-    vec.push(Box::new(Plane::new(
-        Vector3f {
-            x: 0.0,
-            y: 0.0,
-            z: -10.0,
-        },
-        Vector3f {
-            x: 0.0,
-            y: 0.0,
-            z: 1.0,
-        },
-        Color {
-            r: 200,
-            g: 200,
-            b: 200,
-        },
-    )));
-    vec.push(Box::new(Plane::new(
-        Vector3f {
-            x: 0.0,
-            y: 5.0,
-            z: 0.0,
-        },
-        Vector3f {
-            x: 0.0,
-            y: 1.0,
-            z: 0.0,
-        },
-        Color {
-            r: 200,
-            g: 200,
-            b: 200,
-        },
-    )));
-    vec.push(Box::new(Plane::new(
-        Vector3f {
-            x: 0.0,
-            y: -5.0,
-            z: 0.0,
-        },
-        Vector3f {
-            x: 0.0,
-            y: -1.0,
-            z: 0.0,
-        },
-        Color {
-            r: 200,
-            g: 200,
-            b: 200,
-        },
-    )));
+    // vec.push(Box::new(Plane::new(
+    //     Vector3f {
+    //         x: -10.0,
+    //         y: 0.0,
+    //         z: 0.0,
+    //     },
+    //     Vector3f {
+    //         x: -1.0,
+    //         y: 0.0,
+    //         z: 0.0,
+    //     },
+    //     Color {
+    //         r: 200,
+    //         g: 200,
+    //         b: 200,
+    //     },
+    // )));
+    // vec.push(Box::new(Plane::new(
+    //     Vector3f {
+    //         x: 10.0,
+    //         y: 0.0,
+    //         z: 0.0,
+    //     },
+    //     Vector3f {
+    //         x: 1.0,
+    //         y: 0.0,
+    //         z: 0.0,
+    //     },
+    //     Color {
+    //         r: 200,
+    //         g: 200,
+    //         b: 200,
+    //     },
+    // )));
+    // vec.push(Box::new(Plane::new(
+    //     Vector3f {
+    //         x: 0.0,
+    //         y: 0.0,
+    //         z: -10.0,
+    //     },
+    //     Vector3f {
+    //         x: 0.0,
+    //         y: 0.0,
+    //         z: 1.0,
+    //     },
+    //     Color {
+    //         r: 200,
+    //         g: 200,
+    //         b: 200,
+    //     },
+    // )));
+    // vec.push(Box::new(Plane::new(
+    //     Vector3f {
+    //         x: 0.0,
+    //         y: 5.0,
+    //         z: 0.0,
+    //     },
+    //     Vector3f {
+    //         x: 0.0,
+    //         y: 1.0,
+    //         z: 0.0,
+    //     },
+    //     Color {
+    //         r: 200,
+    //         g: 200,
+    //         b: 200,
+    //     },
+    // )));
+    // vec.push(Box::new(Plane::new(
+    //     Vector3f {
+    //         x: 0.0,
+    //         y: -5.0,
+    //         z: 0.0,
+    //     },
+    //     Vector3f {
+    //         x: 0.0,
+    //         y: -1.0,
+    //         z: 0.0,
+    //     },
+    //     Color {
+    //         r: 200,
+    //         g: 200,
+    //         b: 200,
+    //     },
+    // )));
 
     return vec;
 }

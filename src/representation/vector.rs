@@ -1,4 +1,4 @@
-use super::*;
+use super::types::*;
 #[derive(Debug, Copy, Clone)]
 pub struct Vector3f {
     pub x: Fu,

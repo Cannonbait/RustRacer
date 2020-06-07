@@ -1,30 +1,20 @@
 extern crate minifb;
 
-mod camera;
-mod circle;
-mod color;
-mod light;
 mod options;
-mod plane;
-mod ray;
 mod render;
-mod shape;
-mod sphere;
-mod vector;
-use camera::*;
-use circle::*;
-use color::*;
-use light::*;
+mod representation;
+mod shapes;
+
 use minifb::*;
 use options::*;
-use plane::*;
-use ray::*;
 use render::*;
-use shape::*;
-use sphere::*;
-use vector::*;
-
-type Fu = f64;
+use representation::camera::*;
+use representation::color::*;
+use representation::ray::*;
+use representation::shape::*;
+use representation::vector::*;
+use shapes::plane::*;
+use shapes::sphere::*;
 
 fn main() {
     let options = Options {

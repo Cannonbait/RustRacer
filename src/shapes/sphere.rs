@@ -1,4 +1,8 @@
-use super::*;
+use super::super::representation::color::*;
+use super::super::representation::ray::*;
+use super::super::representation::shape::*;
+use super::super::representation::types::*;
+use super::super::representation::vector::*;
 use std::f64::consts;
 
 pub struct Sphere {

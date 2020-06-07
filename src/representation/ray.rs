@@ -1,4 +1,7 @@
-use super::*;
+use super::color::*;
+use super::shape::*;
+use super::vector::*;
+
 use std::cmp::Ordering;
 pub struct Ray {
     pub pos: Vector3f,

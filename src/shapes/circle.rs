@@ -1,4 +1,9 @@
-use super::*;
+use super::super::representation::color::*;
+use super::super::representation::ray::*;
+use super::super::representation::shape::*;
+use super::super::representation::types::*;
+use super::super::representation::vector::*;
+
 pub struct Circle {
     pub pos: Vector3f,
     pub radius: Fu,

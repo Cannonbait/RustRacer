@@ -1,4 +1,5 @@
-use super::*;
+use super::types::*;
+
 #[derive(Debug, Copy, Clone)]
 pub struct Color {
     pub r: u8,

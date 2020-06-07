@@ -1,18 +1,18 @@
 extern crate minifb;
 
+mod model;
 mod options;
 mod render;
-mod representation;
 mod shapes;
 
 use minifb::*;
+use model::camera::*;
+use model::color::*;
+use model::ray::*;
+use model::shape::*;
+use model::vector::*;
 use options::*;
 use render::*;
-use representation::camera::*;
-use representation::color::*;
-use representation::ray::*;
-use representation::shape::*;
-use representation::vector::*;
 use shapes::plane::*;
 use shapes::sphere::*;
 

@@ -1,4 +1,4 @@
-use super::representation::types::*;
+use super::model::types::*;
 use super::*;
 
 pub fn render(objects: Vec<Box<dyn Shape>>, options: Options) {
